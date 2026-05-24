@@ -1,0 +1,17 @@
+[Unit]
+Description=Daily scrape of China Customs administrative penalties (GACC)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/volume1/SynologyDrive/lab/customs-penalties-cn
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/home/admin/.local/bin/uv run python src/run_daily.py
+StandardOutput=journal
+StandardError=journal
+TimeoutStartSec=2h
+Nice=10
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily timer for GACC penalty scraper
+
+[Timer]
+OnCalendar=*-*-* 03:30:00
+Persistent=true
+RandomizedDelaySec=10m
+Unit=customs-penalties.service
+
+[Install]
+WantedBy=timers.target

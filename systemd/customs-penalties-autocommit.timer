@@ -1,0 +1,10 @@
+[Unit]
+Description=Run auto-commit every 5 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+Unit=customs-penalties-autocommit.service
+
+[Install]
+WantedBy=timers.target

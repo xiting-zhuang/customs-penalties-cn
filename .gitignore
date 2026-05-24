@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.uv-cache/
+
+# Raw HTML snapshots — too large for GitHub, NAS is the source of truth
+data/raw/
+
+# Logs — local only
+logs/
