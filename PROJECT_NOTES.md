@@ -11,7 +11,7 @@ Rationale: see "Tier 1 — Genuinely AER/QJE/JPE-grade" discussion in the planni
 - Project root: `/volume1/SynologyDrive/lab/customs-penalties-cn/` (NAS-synced via Syncthing folder `synology-drive`)
 - VPS replica also at `/volume1/SynologyDrive/lab/customs-penalties-cn/` (same path)
 - Git repo (local): inside the project root
-- Git remote: **not yet set** — pending user's GitHub username + `gh auth login`
+- Git remote: **https://github.com/xiting-zhuang/customs-penalties-cn** (private, owner `xiting-zhuang`)
 
 ## Architecture
 - **Lang**: Python 3.11+ managed by `uv` (`pyproject.toml`, `uv.lock` checked in)
@@ -33,7 +33,7 @@ Rationale: see "Tier 1 — Genuinely AER/QJE/JPE-grade" discussion in the planni
 - ✅ Playwright + Chromium installed (~350 MB on VPS, cache at `~/.cache/ms-playwright/`)
 - ✅ Initial git commit (~12 files, 320K)
 - ✅ Daily timer enabled + lingering enabled (`loginctl enable-linger admin`)
-- ⏸ Auto-commit timer NOT yet enabled (waiting for git remote)
+- ✅ Auto-commit timer enabled (5-min interval, only commits when there are real changes)
 - ⛔ **Smoke test FAILING**: Playwright defeats the JS challenge partially (cookies set), but the second request returns HTTP 400 — fingerprint detection.
   - Confirmed: 412 → JS challenge → cookies set → retry returns 400.
   - Likely cause: headless Chromium fingerprint + German VPS IP being treated as suspicious by the GACC anti-bot.
@@ -71,12 +71,10 @@ Then either:
 - continue debugging the anti-bot (see "Things to try" above), or
 - switch the project's `GACC_PENALTY_INDEX` (in `src/config.py`) to a different source URL.
 
-## Git remote setup (when ready)
-```bash
-gh auth login                                # interactive, user-driven
-gh repo create customs-penalties-cn --private --source=. --push
-systemctl --user enable --now customs-penalties-autocommit.timer
-```
+## Git remote (already configured)
+- Origin: `https://github.com/xiting-zhuang/customs-penalties-cn` (private)
+- Auth via `gh` CLI token stored at `~/.config/gh/hosts.yml` on the VPS
+- Auto-commit timer active: pushes every 5 min when there are changes
 
 ## Files in git
 ```
