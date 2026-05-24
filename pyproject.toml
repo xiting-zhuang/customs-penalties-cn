@@ -12,6 +12,7 @@ dependencies = [
     "pyarrow>=17",
     "python-dateutil>=2.9",
     "tenacity>=9.0",
+    "playwright-stealth>=2.0.3",
 ]
 
 [tool.uv]
